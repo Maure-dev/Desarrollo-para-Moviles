@@ -1,17 +1,18 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { LoginScreenProps } from '../../entities/entities';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Email inválido').required('Debe ingresar un email válido'),
   password: Yup.string().min(6, 'Mínimo 6 caracteres').required('Debe ingresar una contraseña'),
 });
 
-export default function LoginScreen({ navigation }: any) {
+export default function LoginScreen({ navigation }: LoginScreenProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Pochocleando</Text>
+      <Image source={require("../../assets/logo.png")} style={styles.logo} />
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={LoginSchema}
@@ -54,12 +55,17 @@ export default function LoginScreen({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', padding: 20, backgroundColor: '#0B1220' },
-  title: { fontSize: 34, fontWeight: '700', color: '#FFD24C', alignSelf: 'center', marginBottom: 20 },
-  form: { backgroundColor: '#0F1724', padding: 16, borderRadius: 12 },
-  input: { backgroundColor: '#111827', color: '#fff', padding: 12, borderRadius: 8, marginBottom: 8 },
+  container: { flex: 1, justifyContent: 'flex-start', padding: 20, paddingTop: 120, backgroundColor: '#0B1220' },
+  form: { backgroundColor: '#151d2aff', padding: 16, borderRadius: 12, justifyContent: 'center' },
+  input: { backgroundColor: '#252e44ff', color: '#fff', padding: 12, borderRadius: 8, marginBottom: 8 },
   button: { backgroundColor: '#E63946', padding: 12, borderRadius: 8, alignItems: 'center', marginTop: 16 },
   buttonText: { color: '#fff', fontWeight: '600' },
   error: { color: '#FFB4B4', fontSize: 12, marginBottom: 6 },
-  placeholder: { color: '#9CA3AF', }
+  placeholder: { color: '#9CA3AF', },
+  logo: {
+    width: 200,
+    height: 200,
+    alignSelf: "center",
+    marginBottom: 100
+  },
 });
