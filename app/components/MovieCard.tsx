@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { MovieCardProps } from '../entities/entities';
 
-export default function MovieCard({ movie, onPress }: any) {
+export default function MovieCard({ movie, onPress }: MovieCardProps) {
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
-      <Image source={{ uri: 'https://via.placeholder.com/120x180' }} style={styles.poster} />
+      <Image source={{ uri: movie.poster }} style={styles.poster} />
       <Text style={styles.title} numberOfLines={2}>{movie.title}</Text>
-      <Text style={styles.rating}>⭐ {movie.rating}</Text>
+      <Text style={styles.rating}>⭐ {movie.rating}/10</Text>
     </TouchableOpacity>
   );
 }
