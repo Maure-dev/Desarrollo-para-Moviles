@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { RegisterScreenProps } from '../../entities/entities';
+import { Ionicons } from '@expo/vector-icons';
 
 const RegisterSchema = Yup.object().shape({
     name: Yup.string().min(2, 'Mínimo 2 caracteres').required('Debe ingresar un nombre'),
@@ -9,10 +11,16 @@ const RegisterSchema = Yup.object().shape({
     password: Yup.string().min(6, 'Mínimo 6 caracteres').required('Debe ingresar una contraseña'),
 });
 
-export default function RegisterScreen({ navigation }: any) {
+export default function RegisterScreen({ navigation }: RegisterScreenProps) {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Pochocleando</Text>
+            <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Ionicons name="chevron-back" size={20} color="#fff" />
+                    <Text style={styles.backButtonText}>Volver al login</Text>
+                </View>
+            </TouchableOpacity>
+            <Image source={require("../../assets/logo.png")} style={styles.logo} />
             <Formik
                 initialValues={{ name: '', email: '', password: '' }}
                 validationSchema={RegisterSchema}
@@ -44,7 +52,7 @@ export default function RegisterScreen({ navigation }: any) {
                         {touched.email && errors.email && <Text style={styles.error}>{errors.email}</Text>}
 
                         <TextInput
-                            placeholder="Password"
+                            placeholder="Contraseña"
                             placeholderTextColor={styles.placeholder.color}
                             secureTextEntry
                             style={styles.input}
@@ -65,12 +73,29 @@ export default function RegisterScreen({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: 'center', padding: 20, backgroundColor: '#0B1220' },
-    title: { fontSize: 34, fontWeight: '700', color: '#FFD24C', alignSelf: 'center', marginBottom: 20 },
-    form: { backgroundColor: '#0F1724', padding: 16, borderRadius: 12 },
-    input: { backgroundColor: '#111827', color: '#fff', padding: 12, borderRadius: 8, marginBottom: 8 },
+    container: { flex: 1, justifyContent: 'flex-start', padding: 20, paddingTop: 120, backgroundColor: '#0B1220' },
+    form: { backgroundColor: '#151d2aff', padding: 16, borderRadius: 12, justifyContent: 'center' },
+    input: { backgroundColor: '#252e44ff', color: '#fff', padding: 12, borderRadius: 8, marginBottom: 8 },
     button: { backgroundColor: '#E63946', padding: 12, borderRadius: 8, alignItems: 'center', marginTop: 6 },
     buttonText: { color: '#fff', fontWeight: '600' },
     error: { color: '#FFB4B4', fontSize: 12, marginBottom: 6 },
-    placeholder: { color: '#9CA3AF', }
+    placeholder: { color: '#9CA3AF', },
+    logo: {
+        width: 200,
+        height: 200,
+        alignSelf: "center",
+        marginBottom: 100
+    },
+    backButton: {
+        position: 'absolute',
+        top: 70,
+        left: 20,
+        padding: 8,
+        borderRadius: 8,
+        backgroundColor: '#252e44ff'
+    },
+    backButtonText: {
+        color: '#fff',
+        fontSize: 16
+    }
 });
