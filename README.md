@@ -1,6 +1,6 @@
 # Desarrollo-para-Moviles
 
-### Trabajo Integrador - Desarrollo para Móviles
+### Trabajo Integrador - Desarrollo para Móviles (Pochocleando)
 
 # Índice
 
@@ -23,29 +23,43 @@
 
 ## Descripción del Proyecto
 
-Este proyecto es una aplicación realizada con React Vite + Typescript y contiene funcionalidades de API realizado con Node Express.js.
+Este proyecto es una aplicación móvil desarrollada con **React Native** utilizando **Expo** como framework.  
 
-To do: Agregar descripción de la app.
+Incluye integración con **React Navigation** para la navegación, **Formik** y **Yup** para la validación de formularios, y **react-native-maps** para la visualización de mapas.
+
+**Pochocleando** será una aplicación móvil que permitirá a los usuarios explorar, buscar y descubrir películas y series de televisión utilizando la API de IMDb como fuente de información principal. La aplicación brindará acceso a datos completos y actualizados, incluyendo sinopsis detalladas, reparto, calificaciones, tráilers, imágenes y recomendaciones personalizadas según los intereses del usuario.
+
+Además, integrará funcionalidades de geolocalización para que el usuario pueda encontrar los cines más cercanos a su ubicación en tiempo real, visualizar sus funciones disponibles y recibir notificaciones locales sobre estrenos relevantes.
 
 ## Objetivo
 
-El objetivo es crear interfaces de usuario interactivas, con diseño responsivo o adaptativo que se comuniquen con la citada API.
+El objetivo es facilitar el acceso a **información completa, precisa y actualizada** sobre películas y series,
+y ofrecer herramientas para que los usuarios puedan descubrir nuevos títulos, mantenerse
+al día con los estrenos y planificar visitas a cines cercanos.
 
-To do: Agregar objetivos de la app.
+- Permitir la búsqueda de películas y series por título, género o popularidad.
+
+- Mostrar detalles completos: sinopsis, reparto, calificación, tráilers e imágenes.
+
+- Localizar cines cercanos y mostrar horarios de funciones mediante geolocalización y mapas.
+
+- Guardar películas favoritas en una lista personalizada.
+
+- Enviar notificaciones para estrenos, funciones cercanas y recomendaciones.
+
+- Ofrecer reseñas y valoraciones personalizadas por parte de los usuarios.
 
 ## Estructura del Proyecto
 
 La estructura del proyecto es la siguiente:
 
-- `src/components/assets/`: Contiene los archivos utilizados para logos e imágenes del proyecto.
+- `app/components/`: Contiene los archivos de los componentes utilizados en cada página.
 
-- `src/components/interfaces`: Contiene los archivos de los componentes utilizados en cada página.
+- `app/navigation/`: Contiene los archivos de la configuración del ruteo de las páginas.
 
-- `src/entities/`: Contiene el archivo donde se realiza la tipificación de los parámetros utilizados en los componentes.
+- `app/screens/`: Contiene los archivos de las páginas utilizadas por el ruteo.
 
-- `src/routes/`: Contiene los archivos de las páginas y la configuración del ruteo de las mismas.
-
-- `src/services/`: Contiene los archivos de los servicios utilizados en las páginas y la configuración del puerto de la API brindada por la cátedra.
+- `app/services/`: Contiene los archivos de los servicios utilizados en las páginas.
 
 ## Dependencias
 
@@ -53,39 +67,20 @@ Este proyecto usa las siguientes librerías:
 
 ### Librerías para el usuario final
 
-- **Axios**: Cliente HTTP basado en promesas para el navegador y Node.js, utilizado para hacer solicitudes HTTP de manera sencilla.
-
-- **React**: Biblioteca de JavaScript para construir interfaces de usuario, particularmente para aplicaciones de una sola página.
-
-- **React-DOM**: Proporciona métodos específicos para trabajar con el DOM en aplicaciones React.
-
-- **React-Router-DOM**: Herramienta de enrutamiento para React, que permite gestionar la navegación y las URL en aplicaciones de una sola página.
+- **Expo**: Framework que simplifica el desarrollo de aplicaciones móviles con React Native, proporcionando herramientas y servicios listos para usar.
+- **Expo-Status-Bar**: Componente que facilita la personalización y control de la barra de estado en aplicaciones móviles.
+- **React**: Biblioteca de JavaScript para construir interfaces de usuario de manera declarativa y eficiente.
+- **React Native**: Framework que permite construir aplicaciones móviles nativas usando React.
+- **React Native Maps**: Biblioteca que permite la integración de mapas en las aplicaciones móviles, soportando Google Maps y Apple Maps.
+- **@react-navigation/native**: Librería principal para la navegación en aplicaciones React Native, gestionando el estado y la integración con el entorno nativo.
+- **@react-navigation/native-stack**: Implementación de un stack navigator optimizado para React Native, utilizado para la navegación entre pantallas.
+- **Formik**: Librería para gestionar formularios en React y React Native, simplificando la validación y el manejo del estado.
+- **Yup**: Librería para la validación de esquemas, frecuentemente utilizada junto con Formik para validar formularios.
 
 ### Librerías de desarrollo
 
-- **@types/react**: Tipos de TypeScript para React, que proporcionan soporte de tipos para el desarrollo con TypeScript.
-
-- **@types/react-dom**: Tipos de TypeScript para React-DOM, que ayudan a asegurar la compatibilidad de tipos en aplicaciones React.
-
-- **@typescript-eslint/eslint-plugin**: Plugin de ESLint que soporta TypeScript, proporcionando reglas específicas para TypeScript.
-
-- **@typescript-eslint/parser**: Parser de ESLint que permite a ESLint entender el código TypeScript.
-
-- **@vitejs/plugin-react**: Plugin para integrar React con Vite, facilitando la configuración y optimización del proyecto.
-
-- **Autoprefixer**: Herramienta para añadir prefijos específicos del navegador a las reglas CSS, mejorando la compatibilidad del CSS.
-
-- **ESLint**: Herramienta de análisis de código estático para identificar y reportar patrones en JavaScript y TypeScript.
-
-- **eslint-plugin-react-hooks**: Reglas específicas para los hooks de React, ayudando a mantener buenas prácticas en su uso.
-
-- **eslint-plugin-react-refresh**: Plugin para habilitar la recarga rápida en desarrollo con React.
-
-- **TailwindCSS**: Framework CSS que proporciona clases utilitarias para diseñar rápidamente interfaces de usuario.
-
 - **TypeScript**: Superconjunto de JavaScript que añade tipos estáticos y otras características avanzadas.
-
-- **Vite**: Herramienta de desarrollo frontend que proporciona un entorno rápido y moderno para el desarrollo de aplicaciones web.
+- **@types/react**: Tipos de TypeScript para React, que proporcionan soporte de tipos para el desarrollo con TypeScript.
 
 ## Instalación y Configuración
 
@@ -106,12 +101,12 @@ Para instalar y configurar el proyecto, sigue estos pasos:
 3. **Inicia el servidor**
 
    ```bash
-   npm run dev
+   npx expo start
    ```
 
 ## Uso del Proyecto
 
-Una vez iniciado el proyecto, puedes acceder a la página principal en http://localhost:3000/. Si haces cambios en el proyecto, el servidor se reiniciará automáticamente.
+Una vez iniciado el proyecto, puedes acceder a la página principal escaneando el código QR generado en la terminal con la aplicación de la cámara nativa de su celular y la aplicación **Expo Go** previamente instalada desde la App Store o Play Store. Si haces cambios en el proyecto, el servidor se reiniciará automáticamente.
 
 ## Licencia
 
