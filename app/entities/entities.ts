@@ -4,7 +4,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StyleProp, ViewStyle } from "react-native";
 
 export type Cinema = {
-    id: string | number;
+    id: string;
     name: string;
     latitude: number;
     longitude: number;
@@ -13,6 +13,7 @@ export type Cinema = {
 export type MapCinemasProps = {
     cinemas: Cinema[];
     styles: StyleProp<ViewStyle>;
+    onSelectCinema?: (id: string) => void;
 };
 
 /*** Movie Card Interface ***/
@@ -22,9 +23,6 @@ export type Movie = {
     title: string;
     rating?: number;
     description?: string;
-    showtimes?: {
-        time: string; cinema: string;
-    }[];
 };
 
 export type MovieCardProps = {
@@ -38,13 +36,42 @@ export type NoResultsProps = {
     styles?: StyleProp<ViewStyle>;
 };
 
+/*** Details Cinema Interface ***/
+
+export type DetailsCinemaProps = {
+    cinemaDetails: {
+        name: string;
+        formatted_address?: string;
+        rating?: number;
+        formatted_phone_number?: string;
+        website?: string;
+        user_ratings_total?: number;
+        reviews?: { text: string }[];
+    };
+    onSetCinemaDetails?: (id: string | null) => void;
+}
+
 /*** Navigation ***/
 
 export type RootStackParamList = {
+    Main: undefined
     Register: undefined;
     Login: undefined;
     Home: undefined;
+    Profile: undefined;
+    Cinemas: undefined;
+    CinemaDetails: {
+        placeId: string,
+        coords: { latitude: number; longitude: number },
+        name: string,
+        photoUrl?: string,
+        address?: string,
+        phone?: string,
+        website?: string
+    };
     Details: { id?: string, movie?: Movie };
+    MoviesList: undefined;
+    SeriesList: undefined;
 };
 
 /*** Login Screen ***/
@@ -83,4 +110,55 @@ export type DetailsScreenProps = {
         };
     };
     navigation: DetailsScreenNavigationProp;
+};
+
+/*** Profile Screen ***/
+
+export type ProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Profile'>;
+
+export type ProfileScreenProps = {
+    navigation: ProfileScreenNavigationProp;
+};
+
+/*** Cinemas Screen ***/
+
+export type CinemasScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Cinemas'>;
+
+export type CinemasScreenProps = {
+    navigation: CinemasScreenNavigationProp;
+};
+
+
+/*** Cinema Details Screen ***/
+
+export type CinemaDetailsScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'CinemaDetails'>;
+
+export type CinemaDetailsScreenProps = {
+    route: {
+        params: {
+            placeId: string,
+            coords: { latitude: number; longitude: number },
+            name: string,
+            photoUrl?: string,
+            address?: string,
+            phone?: string,
+            website?: string
+        };
+    };
+    navigation: CinemaDetailsScreenNavigationProp;
+};
+
+/*** Movies Screen ***/
+
+export type MoviesScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'MoviesList'>;
+export type MoviesScreenProps = { navigation: MoviesScreenNavigationProp };
+
+/*** Series Screen ***/
+
+export type SeriesScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'SeriesList'>;
+export type SeriesScreenProps = { navigation: SeriesScreenNavigationProp };
+
+export type FilterOptions = {
+    id: string;
+    text: string;
 };

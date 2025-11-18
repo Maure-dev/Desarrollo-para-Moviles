@@ -2,6 +2,41 @@
   "expo": {
     "name": "pochocleando",
     "slug": "pochocleando",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Permitimos acceder a tu ubicación para mostrar cines cercanos."
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "La app necesita acceder a la cámara para tomar tu foto de perfil."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Permitimos acceder a tus fotos para seleccionar una imagen de perfil."
+        }
+      ]
+    ],
+    "android": {
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_MEDIA_IMAGES"
+      ]
+    },
+    "ios": {
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Usamos tu ubicación para mostrar cines cercanos.",
+        "NSCameraUsageDescription": "Necesitamos acceder a la cámara para tomar tu foto de perfil.",
+        "NSPhotoLibraryUsageDescription": "Necesitamos acceder a tus fotos para seleccionar una imagen de perfil."
+      }
+    }
   }
 }

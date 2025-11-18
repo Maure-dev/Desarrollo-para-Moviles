@@ -1,0 +1,19 @@
+import 'dotenv/config';
+
+export default ({ config }) => {
+    return {
+        ...config,
+        extra: {
+            ENV_TMDB_API_KEY: process.env.ENV_TMDB_API_KEY || 'SIN CONFIGURAR EN EL ENV',
+            ENV_TMDB_BASE_URL: process.env.ENV_TMDB_BASE_URL || 'SIN CONFIGURAR EN EL ENV',
+            ENV_GOOGLE_API_KEY: process.env.ENV_GOOGLE_API_KEY || 'SIN CONFIGURAR EN EL ENV',
+            ENV_FIREBASE_API_KEY: process.env.ENV_FIREBASE_API_KEY || 'SIN CONFIGURAR EN EL ENV',
+            ENV_FIREBASE_AUTH_DOMAIN: process.env.ENV_FIREBASE_AUTH_DOMAIN || 'SIN CONFIGURAR EN EL ENV',
+            ENV_FIREBASE_PROJECT_ID: process.env.ENV_FIREBASE_PROJECT_ID || 'SIN CONFIGURAR EN EL ENV',
+            ENV_FIREBASE_STORAGE_BUCKET: process.env.ENV_FIREBASE_STORAGE_BUCKET || 'SIN CONFIGURAR EN EL ENV',
+            ENV_FIREBASE_MESSAGING_SENDER_ID: process.env.ENV_FIREBASE_MESSAGING_SENDER_ID || 'SIN CONFIGURAR EN EL ENV',
+            ENV_FIREBASE_APP_ID: process.env.ENV_FIREBASE_APP_ID || 'SIN CONFIGURAR EN EL ENV',
+            ENV_FIREBASE_MEASUREMENT_ID: process.env.ENV_FIREBASE_MEASUREMENT_ID || 'SIN CONFIGURAR EN EL ENV',
+        },
+    };
+};
