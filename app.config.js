@@ -33,6 +33,7 @@ export default {
         ],
 
         android: {
+            package: "com.uner.pochocleando",
             permissions: [
                 "ACCESS_FINE_LOCATION",
                 "READ_EXTERNAL_STORAGE",
@@ -43,6 +44,7 @@ export default {
         },
 
         ios: {
+            bundleIdentifier: "com.uner.pochocleando",
             infoPlist: {
                 NSLocationWhenInUseUsageDescription:
                     "Usamos tu ubicación para mostrar cines cercanos.",
