@@ -94,12 +94,17 @@ export async function getTrendingMovies() {
     }
 }
 
+export const getLatestMovie = async () => {
+    const response = await fetch(`${TMDB_BASE_URL}/movie/latest?api_key=${TMDB_API_KEY}`);
+    return response.json();
+};
+
 export async function getMovieVideos(movieId: string | number) {
     try {
-        const resp = await axios.get(`${TMDB_BASE_URL}/movie/${movieId}/videos`, {
+        const response = await axios.get(`${TMDB_BASE_URL}/movie/${movieId}/videos`, {
             params: { api_key: TMDB_API_KEY, language: 'es-AR' }
         });
-        return resp.data.results || [];
+        return response.data.results || [];
     } catch (error) {
         console.error('Error fetching movie videos:', error);
         return [];

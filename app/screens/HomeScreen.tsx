@@ -8,6 +8,9 @@ import * as Location from "expo-location";
 import { getPremieres, getWhatToSeeToday } from '../services/tmdbService';
 import { getNearbyCinemas, fetchCinemaDetails } from "../services/googleService";
 import DetailsCinemaModal from '../components/DetailsCinemaModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
+import { getLatestMovie } from '../services/tmdbService';
 
 export default function HomeScreen({ navigation }: HomeScreenProps) {
   const [searchText, setSearchText] = useState('');
@@ -64,10 +67,31 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
     }).start();
   }
 
+  async function handleCheckNewMovies() {
+    const { status } = await Notifications.requestPermissionsAsync();
+    if (status !== 'granted') {
+      alert('Permitinos enviarte notificaciones para mantenerte al tanto de las nuevas películas.');
+    }
+    const latest = await getLatestMovie();
+    const lastSavedId = await AsyncStorage.getItem('last_movie_id');
+
+    if (latest.id.toString() !== lastSavedId) {
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: 'Nueva película disponible 🎬',
+          body: latest.title,
+        },
+        trigger: null,
+      });
+      await AsyncStorage.setItem('last_movie_id', latest.id.toString());
+    }
+  }
+
   function onInitHome() {
     handleGetPremieres();
     handleGetWhatToSeeToday();
     handleSetCurrentLocation();
+    handleCheckNewMovies();
   }
 
   useEffect(onInitHome, [])
