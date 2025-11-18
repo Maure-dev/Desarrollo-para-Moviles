@@ -89,8 +89,9 @@ export default function ProfileScreen({ navigation }: ProfileScreenProps) {
     async function handleSave() {
         try {
             setLoading(true);
-            await saveUserProfile(uid, profile);
             Alert.alert('Listo', 'Perfil guardado con éxito.');
+            setLoading(false);
+            await saveUserProfile(uid, profile);
         } catch (e) {
             console.error(e);
             Alert.alert('Error', 'No se pudo guardar.');
