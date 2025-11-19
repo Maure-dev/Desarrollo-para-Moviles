@@ -224,49 +224,49 @@ Una vez iniciado el proyecto, puedes acceder a la página principal escaneando e
 
 1. **Login**  
 
-![Login](app/assets/presentation/login.jpeg)
+<img src="app/assets/presentation/login.jpeg" width="200" />
 
 2. **Registro**  
 
-![Registro](app/assets/presentation/register.jpeg)
+<img src="app/assets/presentation/register.jpeg" width="200" />
 
 3. **Pantalla de Inicio / Home**
 
-![Home 1](app/assets/presentation/home.jpeg)
+<img src="app/assets/presentation/home.jpeg" width="200" />
 
-![Home 2](app/assets/presentation/home_2.jpeg)
+<img src="app/assets/presentation/home_2.jpeg" width="200" />
 
 4. **Pantalla de Películas** 
 
-![Movies](app/assets/presentation/movies.jpeg)
+<img src="app/assets/presentation/movies.jpeg" width="200" />
 
 5. **Pantalla de Series**  
 
-![Series](app/assets/presentation/series.jpeg)
+<img src="app/assets/presentation/series.jpeg" width="200" />
 
 6. **Pantalla de Detalles de Película / Serie**  
 
-![Movie Details 1](app/assets/presentation/movie_detail.jpeg)
+<img src="app/assets/presentation/movie_detail.jpeg" width="200" />
 
-![Movie Details 2](app/assets/presentation/movie_detail_2.jpeg)
+<img src="app/assets/presentation/movie_detail_2.jpeg" width="200" />
 
 7. **Pantalla de Cines Cercanos**  
 
-![Cinemas](app/assets/presentation/cinemas.jpeg)
+<img src="app/assets/presentation/cinemas.jpeg" width="200" />
 
 8. **Pantalla de Detalle del Cine Seleccionado**  
 
-![Cinema Details](app/assets/presentation/cinema_detail.jpeg)
+<img src="app/assets/presentation/cinema_detail.jpeg" width="200" />
 
 9. **Pantalla de Perfil**  
 
-![Loading](app/assets/presentation/loading.jpeg)
+<img src="app/assets/presentation/loading.jpeg" width="200" />
 
-![Profile 1](app/assets/presentation/profile.jpeg)
+<img src="app/assets/presentation/profile.jpeg" width="200" />
 
-![Profile 2](app/assets/presentation/profile_2.jpeg)
+<img src="app/assets/presentation/profile_2.jpeg" width="200" />
 
-![Profile 3](app/assets/presentation/profile_3.jpeg)
+<img src="app/assets/presentation/profile_3.jpeg" width="200" />
 
 ## Licencia
 
