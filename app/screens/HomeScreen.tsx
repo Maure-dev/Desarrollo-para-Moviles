@@ -76,6 +76,11 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
       return;
     }
 
+    await Notifications.setNotificationChannelAsync("default", {
+      name: "default",
+      importance: Notifications.AndroidImportance.MAX,
+    });
+
     await Notifications.scheduleNotificationAsync({
       content: {
         title: 'Notificaciones permitidas! 🎬',
