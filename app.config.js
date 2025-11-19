@@ -1,9 +1,10 @@
 export default {
     expo: {
-        name: "pochocleando",
+        name: "Pochocleando",
         slug: "pochocleando",
         version: "1.0.0",
         projectId: "e5ab5937-3629-494d-aa98-93708c5a3fdd",
+        icon: "./app/assets/logo.png",
 
         plugins: [
             [
@@ -34,6 +35,10 @@ export default {
 
         android: {
             package: "com.uner.pochocleando",
+            adaptiveIcon: {
+                foregroundImage: "./app/assets/logo.png",
+                backgroundColor: "#ffffff"
+            },
             permissions: [
                 "ACCESS_FINE_LOCATION",
                 "READ_EXTERNAL_STORAGE",
@@ -45,6 +50,7 @@ export default {
 
         ios: {
             bundleIdentifier: "com.uner.pochocleando",
+            icon: "./app/assets/logo.png",
             infoPlist: {
                 NSLocationWhenInUseUsageDescription:
                     "Usamos tu ubicación para mostrar cines cercanos.",
