@@ -40,14 +40,14 @@ export default {
                 backgroundColor: "#ffffff"
             },
             permissions: [
-                "ACCESS_FINE_LOCATION",
                 "READ_EXTERNAL_STORAGE",
                 "WRITE_EXTERNAL_STORAGE",
                 "READ_MEDIA_IMAGES",
                 "POST_NOTIFICATIONS",
                 "ACCESS_FINE_LOCATION",
                 "ACCESS_COARSE_LOCATION",
-                "ACCESS_BACKGROUND_LOCATION"
+                "ACCESS_BACKGROUND_LOCATION",
+                "FOREGROUND_SERVICE"
             ],
             config: {
                 googleMaps: {

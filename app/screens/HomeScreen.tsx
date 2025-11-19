@@ -70,16 +70,17 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
   }
 
   async function handleCheckNewMovies() {
-    const { status } = await Notifications.requestPermissionsAsync();
-    if (status !== 'granted') {
-      alert('Permitinos enviarte notificaciones para mantenerte al tanto de las nuevas películas.');
+    const permission = await Notifications.requestPermissionsAsync();
+    const granted =
+      permission.granted ||
+      permission.status === Notifications.PermissionStatus.GRANTED;
+
+    if (!granted) {
+      alert(
+        'Permitinos enviarte notificaciones para mantenerte al tanto de las nuevas películas.'
+      );
       return;
     }
-
-    await Notifications.setNotificationChannelAsync("default", {
-      name: "default",
-      importance: Notifications.AndroidImportance.MAX,
-    });
 
     await Notifications.scheduleNotificationAsync({
       content: {
