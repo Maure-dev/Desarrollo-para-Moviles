@@ -1,188 +1,132 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, FlatList, KeyboardAvoidingView, Image, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TextInput, FlatList, KeyboardAvoidingView, Image, ScrollView, ActivityIndicator, Animated } from 'react-native';
 import MovieCard from '../components/MovieCard';
 import MapCinemas from '../components/MapCinemas';
 import { HomeScreenProps } from '../entities/entities';
 import NoResults from '../components/NoResults';
-import { Ionicons } from '@expo/vector-icons';
-
-const QUE_VER_HOY = [
-  {
-    id: '1',
-    title: 'Relatos Salvajes',
-    rating: 8.1,
-    poster: 'https://pics.filmaffinity.com/relatos_salvajes-102488639-mmed.jpg',
-    description: 'Seis historias cortas que exploran la violencia y la venganza en la sociedad argentina.',
-    showtimes: [
-      { time: '18:00', cinema: 'Hoyts Abasto' },
-      { time: '20:45', cinema: 'Cinemark Palermo' },
-      { time: '22:30', cinema: 'Village Recoleta' },
-    ],
-  },
-  {
-    id: '2',
-    title: 'El secreto de sus ojos',
-    rating: 8.2,
-    poster: 'https://pics.filmaffinity.com/el_secreto_de_sus_ojos-483213496-mmed.jpg',
-    description: 'Un oficial judicial retirado escribe una novela basada en un caso sin resolver.',
-    showtimes: [
-      { time: '19:00', cinema: 'Hoyts Unicenter' },
-      { time: '21:30', cinema: 'Cinemark Córdoba' },
-    ],
-  },
-  {
-    id: '3',
-    title: 'Nueve reinas',
-    rating: 7.9,
-    poster: 'https://pics.filmaffinity.com/nueve_reinas-171671850-mmed.jpg',
-    description: 'Dos estafadores intentan vender unas estampillas falsas a un coleccionista.',
-    showtimes: [
-      { time: '17:00', cinema: 'Village Caballito' },
-      { time: '20:00', cinema: 'Hoyts Abasto' },
-    ],
-  },
-  {
-    id: '4',
-    title: 'Camila',
-    rating: 7.0,
-    poster: 'https://pics.filmaffinity.com/queen_camilla_the_wicked_stepmother-961434642-mmed.jpg',
-    description: 'Historia de amor prohibido en la Argentina del siglo XIX.',
-    showtimes: [
-      { time: '18:30', cinema: 'Cinemark Palermo' },
-      { time: '22:00', cinema: 'Village Recoleta' },
-    ],
-  },
-  {
-    id: '5',
-    title: 'El Clan',
-    rating: 7.3,
-    poster: 'https://pics.filmaffinity.com/el_clan-608190306-mmed.jpg',
-    description: 'Basada en hechos reales sobre una familia criminal en Buenos Aires.',
-    showtimes: [
-      { time: '19:15', cinema: 'Hoyts Unicenter' },
-      { time: '21:45', cinema: 'Cinemark Córdoba' },
-    ],
-  },
-  {
-    id: '6',
-    title: 'Carancho',
-    rating: 7.1,
-    poster: 'https://pics.filmaffinity.com/carancho-132970779-mmed.jpg',
-    description: 'Un abogado corrupto se enamora de una médica mientras busca justicia.',
-    showtimes: [
-      { time: '20:00', cinema: 'Village Caballito' },
-      { time: '22:30', cinema: 'Hoyts Abasto' },
-    ],
-  },
-  // Reemplazar con datos reales de IMDB/API
-];
-
-const ESTRENOS = [
-  {
-    id: '7',
-    title: 'Argentina, 1985',
-    rating: 7.9,
-    poster: 'https://pics.filmaffinity.com/argentina_1985-430372554-mmed.jpg',
-    description: 'Un fiscal lleva adelante el histórico juicio a la junta militar argentina.',
-    showtimes: [
-      { time: '19:00', cinema: 'Cinemark Palermo' },
-      { time: '21:30', cinema: 'Village Recoleta' },
-    ],
-  },
-  {
-    id: '8',
-    title: 'El Robo del Siglo',
-    rating: 7.3,
-    poster: 'https://pics.filmaffinity.com/el_robo_del_siglo-683536953-mmed.jpg',
-    description: 'Basada en el mayor robo bancario de la historia argentina.',
-    showtimes: [
-      { time: '18:45', cinema: 'Hoyts Abasto' },
-      { time: '20:30', cinema: 'Cinemark Córdoba' },
-    ],
-  },
-  {
-    id: '9',
-    title: 'La Odisea de los Giles',
-    rating: 7.1,
-    poster: 'https://pics.filmaffinity.com/la_odisea_de_los_giles-274529633-mmed.jpg',
-    description: 'Un grupo de vecinos intenta recuperar su dinero tras una estafa financiera.',
-    showtimes: [
-      { time: '17:30', cinema: 'Village Caballito' },
-      { time: '20:00', cinema: 'Hoyts Unicenter' },
-    ],
-  },
-  {
-    id: '10',
-    title: 'Crímenes de Familia',
-    rating: 6.8,
-    poster: 'https://pics.filmaffinity.com/crimenes_de_familia-549018936-mmed.jpg',
-    description: 'Un drama familiar que explora secretos y traiciones.',
-    showtimes: [
-      { time: '19:15', cinema: 'Cinemark Palermo' },
-      { time: '21:00', cinema: 'Village Recoleta' },
-    ],
-  },
-  {
-    id: '12',
-    title: 'Zama',
-    rating: 6.5,
-    poster: 'https://pics.filmaffinity.com/zama-204566076-mmed.jpg',
-    description: 'Un funcionario colonial espera su traslado en una remota región del imperio.',
-    showtimes: [
-      { time: '18:00', cinema: 'Hoyts Unicenter' },
-      { time: '20:45', cinema: 'Cinemark Córdoba' },
-    ],
-  },
-  // Reemplazar con datos reales de IMDB/API
-];
-
-const CARTELERA = [
-  { id: '1', title: 'El secreto de sus ojos', horario: '18:00', cine: 'Hoyts Abasto' },
-  { id: '2', title: 'Relatos Salvajes', horario: '20:30', cine: 'Cinemark Palermo' },
-  { id: '3', title: 'Nueve reinas', horario: '21:00', cine: 'Village Recoleta' },
-  { id: '4', title: 'Argentina, 1985', horario: '19:45', cine: 'Hoyts Unicenter' },
-  { id: '5', title: 'El Robo del Siglo', horario: '22:00', cine: 'Cinemark Córdoba' },
-  { id: '6', title: 'La Odisea de los Giles', horario: '18:30', cine: 'Village Caballito' },
-  // Reemplazar con datos reales de IMDB/API
-];
-
-const CINES_CERCANOS = [
-  { id: '1', name: 'Hoyts Abasto', latitude: -34.603722, longitude: -58.410158 },
-  { id: '2', name: 'Cinemark Palermo', latitude: -34.588192, longitude: -58.423731 },
-  { id: '3', name: 'Village Recoleta', latitude: -34.588608, longitude: -58.393014 },
-  { id: '4', name: 'Hoyts Unicenter', latitude: -34.494377, longitude: -58.610434 },
-  { id: '5', name: 'Cinemark Córdoba', latitude: -31.4135, longitude: -64.1811 },
-  { id: '6', name: 'Village Caballito', latitude: -34.623664, longitude: -58.441571 },
-  // Reemplazar con datos reales de ubicación
-];
+import * as Location from "expo-location";
+import { getPremieres, getWhatToSeeToday } from '../services/tmdbService';
+import { getNearbyCinemas, fetchCinemaDetails } from "../services/googleService";
+import DetailsCinemaModal from '../components/DetailsCinemaModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
+import { getLatestMovie } from '../services/tmdbService';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function HomeScreen({ navigation }: HomeScreenProps) {
   const [searchText, setSearchText] = useState('');
+  const [whatToSeeToday, setWhatToSeeToday] = useState([]);
+  const [premieres, setPremieres] = useState([]);
+  const [location, setLocation] = useState(null);
+  const [nearbyCinemas, setNearbyCinemas] = useState([]);
+  const [cinemaDetails, setCinemaDetails] = useState(null);
+  const [mapOpacity] = useState(new Animated.Value(0));
+  const insets = useSafeAreaInsets();
 
-  const filteredQueVerHoy = QUE_VER_HOY.filter(movie =>
+  const filteredWhatToSeeToday = whatToSeeToday.filter(movie =>
+    movie.title.toLowerCase().includes(searchText.toLowerCase())
+  );
+  const filteredPremieres = premieres.filter(movie =>
     movie.title.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const filteredEstrenos = ESTRENOS.filter(movie =>
-    movie.title.toLowerCase().includes(searchText.toLowerCase())
-  );
+  async function handleFetchCinemaDetails(id: string) {
+    const data = await fetchCinemaDetails(id);
+    setCinemaDetails(data);
+  }
 
-  const filteredCartelera = CARTELERA.filter(movie =>
-    movie.title.toLowerCase().includes(searchText.toLowerCase())
-  );
+  async function handleSetCurrentLocation() {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") return;
+
+    const loc = await Location.getCurrentPositionAsync({});
+    setLocation({
+      latitude: loc.coords.latitude,
+      longitude: loc.coords.longitude,
+    });
+  }
+
+  async function handleGetPremieres() {
+    const data = await getPremieres();
+    setPremieres(data);
+  }
+
+  async function handleGetWhatToSeeToday() {
+    const data = await getWhatToSeeToday();
+    setWhatToSeeToday(data);
+  }
+
+  async function handleGetNearbyCinemas(lat: number, lng: number) {
+    const data = await getNearbyCinemas(lat, lng);
+    setNearbyCinemas(data);
+  }
+
+  function handleLoadingMap() {
+    Animated.timing(mapOpacity, {
+      toValue: 1,
+      duration: 600,
+      useNativeDriver: true,
+    }).start();
+  }
+
+  async function handleCheckNewMovies() {
+    const { status } = await Notifications.requestPermissionsAsync();
+    if (status !== 'granted') {
+      alert('Permitinos enviarte notificaciones para mantenerte al tanto de las nuevas películas.');
+      return;
+    }
+
+    await Notifications.setNotificationChannelAsync("default", {
+      name: "default",
+      importance: Notifications.AndroidImportance.MAX,
+    });
+
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Notificaciones permitidas! 🎬',
+        body: 'Te mantendrás al tanto de las nuevas películas que se estrenen',
+      },
+      trigger: null,
+    });
+
+    const latest = await getLatestMovie();
+    const lastSavedId = await AsyncStorage.getItem('last_movie_id');
+
+    if (latest.id.toString() !== lastSavedId) {
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: 'Nueva película disponible 🎬',
+          body: latest.title,
+        },
+        trigger: null,
+      });
+      await AsyncStorage.setItem('last_movie_id', latest.id.toString());
+    }
+  }
+
+  function onInitHome() {
+    handleGetPremieres();
+    handleGetWhatToSeeToday();
+    handleSetCurrentLocation();
+    handleCheckNewMovies();
+  }
+
+  useEffect(onInitHome, [])
+
+  useEffect(() => {
+    if (location) {
+      handleLoadingMap();
+      handleGetNearbyCinemas(location.latitude, location.longitude);
+    }
+  }, [location]);
 
   const renderListHeader = () => (
-    <View style={{ flex: 1 }}>
+    <View style={styles.listHeaderContainer}>
       <View style={styles.menuContainer}>
-        <View style={styles.actionsContainer}>
-          <Image source={require("../assets/logo.png")} style={styles.logo} />
-          <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Login')}>
-            <Ionicons name="log-out-outline" size={20} color="#fff" />
-          </TouchableOpacity>
-        </View>
+        <Image source={require("../assets/logo.png")} style={styles.logo} />
         <TextInput
           style={styles.searchInput}
-          placeholder="🔍 Buscar película..."
+          placeholder="🔍 Buscar película o serie..."
           placeholderTextColor="#9CA3AF"
           value={searchText}
           onChangeText={setSearchText}
@@ -191,11 +135,11 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>¿Qué ver hoy?</Text>
-        {filteredQueVerHoy.length === 0 && (
+        {filteredWhatToSeeToday.length === 0 && (
           <NoResults />
         )}
         <FlatList
-          data={filteredQueVerHoy}
+          data={filteredWhatToSeeToday}
           keyExtractor={(item) => item.id}
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -208,11 +152,11 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Estrenos</Text>
-        {filteredEstrenos.length === 0 && (
+        {filteredPremieres.length === 0 && (
           <NoResults />
         )}
         <FlatList
-          data={filteredEstrenos}
+          data={filteredPremieres}
           keyExtractor={(item) => item.id}
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -221,13 +165,6 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
             <MovieCard movie={item} onPress={() => navigation.navigate('Details', { id: item.id, movie: item })} />
           )}
         />
-      </View>
-
-      <View>
-        <Text style={styles.sectionTitle}>Cartelera</Text>
-        {filteredCartelera.length === 0 && (
-          <NoResults styles={styles.noResults} />
-        )}
       </View>
     </View>
   );
@@ -238,29 +175,31 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
     >
       <ScrollView
         style={styles.container}
-        contentContainerStyle={{ paddingTop: 12, paddingBottom: 12 }}
+        contentContainerStyle={{ paddingTop: 12, paddingBottom: 112 + insets.bottom }}
         keyboardShouldPersistTaps="handled"
       >
         {renderListHeader()}
 
-        {filteredCartelera.map((item, index) => (
-          <View
-            key={item.id}
-            style={[
-              styles.carteleraRow,
-              index === filteredCartelera.length - 1 && { marginBottom: 50 }
-            ]}
-          >
-            <Text style={styles.carteleraTitle}>{item.title}</Text>
-            <Text style={styles.carteleraHoraText}>{item.horario}</Text>
-            <Text style={styles.carteleraCinemaText}>{item.cine}</Text>
-          </View>
-        ))}
-
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Cines cercanos</Text>
-          <MapCinemas cinemas={CINES_CERCANOS} styles={styles.map} />
+          {location === null ? (
+            <View style={styles.mapLoadingContainer}>
+              <ActivityIndicator size="large" color="#fff" />
+              <Text style={styles.loadingLocationText}>Obteniendo ubicación...</Text>
+            </View>
+          ) : (
+            <Animated.View style={{ opacity: mapOpacity }}>
+              <MapCinemas
+                cinemas={nearbyCinemas}
+                styles={styles.map}
+                onSelectCinema={handleFetchCinemaDetails}
+              />
+            </Animated.View>
+          )}
         </View>
+        {cinemaDetails && (
+          <DetailsCinemaModal cinemaDetails={cinemaDetails} onSetCinemaDetails={setCinemaDetails} />
+        )}
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -269,18 +208,18 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#071026', paddingTop: 60 },
   menuContainer: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
+    gap: 12,
     paddingHorizontal: 16,
-    marginBottom: 12,
+    marginBottom: 32,
+    width: '100%',
   },
   searchInput: {
     flex: 1,
-    width: '100%',
     height: 60,
     backgroundColor: '#1F2937',
     borderRadius: 8,
-    marginBottom: 32,
     paddingHorizontal: 12,
     color: '#fff',
   },
@@ -320,28 +259,27 @@ const styles = StyleSheet.create({
   },
   map: {
     height: 300,
-    marginHorizontal: 16,
+    marginTop: 16,
     borderRadius: 12,
-  },
-  noResults: {
-    marginBottom: 50
   },
   logo: {
     width: 100,
     height: 100,
-    alignSelf: "center",
-    marginBottom: 20
+    alignSelf: "center"
   },
-  actionsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
+  listHeaderContainer: {
+    flex: 1
+  },
+  mapLoadingContainer: {
+    height: 300,
+    marginHorizontal: 16,
+    borderRadius: 12,
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 16,
+    backgroundColor: 'rgba(0,0,0,0.4)',
   },
-  backButton: {
-    padding: 8,
-    borderRadius: 8,
-    backgroundColor: '#E63946'
-  },
+  loadingLocationText: {
+    color: '#fff',
+    marginTop: 10
+  }
 });
