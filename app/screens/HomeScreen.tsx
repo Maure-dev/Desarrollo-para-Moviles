@@ -73,7 +73,17 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
     const { status } = await Notifications.requestPermissionsAsync();
     if (status !== 'granted') {
       alert('Permitinos enviarte notificaciones para mantenerte al tanto de las nuevas películas.');
+      return;
     }
+
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Notificaciones permitidas! 🎬',
+        body: 'Te mantendrás al tanto de las nuevas películas que se estrenen',
+      },
+      trigger: null,
+    });
+
     const latest = await getLatestMovie();
     const lastSavedId = await AsyncStorage.getItem('last_movie_id');
 
