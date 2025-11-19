@@ -6,10 +6,13 @@ import HomeStack from './HomeStack';
 import CinemasStack from './CinemasStack';
 import MoviesStack from './MoviesStack';
 import SeriesStack from './SeriesStack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const Tab = createBottomTabNavigator();
 
 export default function AppTabs() {
+    const insets = useSafeAreaInsets();
+
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -25,9 +28,9 @@ export default function AppTabs() {
                 tabBarStyle: {
                     position: 'absolute',
                     bottom: 0,
-                    height: 82,
+                    height: 82 + insets.bottom,
                     borderTopWidth: 0,
-                    paddingBottom: 24,
+                    paddingBottom: 24 + insets.bottom,
                     backgroundColor: '#1F2937',
                 },
                 tabBarActiveTintColor: '#E63946',

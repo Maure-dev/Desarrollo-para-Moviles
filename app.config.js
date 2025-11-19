@@ -45,7 +45,15 @@ export default {
                 "WRITE_EXTERNAL_STORAGE",
                 "READ_MEDIA_IMAGES",
                 "POST_NOTIFICATIONS",
+                "ACCESS_FINE_LOCATION",
+                "ACCESS_COARSE_LOCATION",
+                "ACCESS_BACKGROUND_LOCATION"
             ],
+            config: {
+                googleMaps: {
+                    apiKey: process.env.ENV_GOOGLE_CLOUD_MAPS_API_KEY
+                }
+            }
         },
 
         ios: {

@@ -5,8 +5,10 @@ import { fetchCinemaDetails } from '../../services/googleService';
 import { CinemaDetailsScreenProps } from '../../entities/entities';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import Constants from 'expo-constants';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+const GOOGLE_CLOUD_MAPS_API_KEY = Constants.expoConfig.extra.ENV_GOOGLE_CLOUD_MAPS_API_KEY;
 
 export default function CinemaDetailsScreen({ route, navigation }: CinemaDetailsScreenProps) {
     const { placeId, coords, name, photoUrl, phone, website } = route.params;
@@ -131,6 +133,7 @@ export default function CinemaDetailsScreen({ route, navigation }: CinemaDetails
                                 longitudeDelta: 0.01,
                             }}
                             pointerEvents="none"
+                            provider={GOOGLE_CLOUD_MAPS_API_KEY}
                         >
                             <Marker coordinate={{ latitude: coords.latitude, longitude: coords.longitude }} />
                         </MapView>
