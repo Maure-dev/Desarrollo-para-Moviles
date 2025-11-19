@@ -3,11 +3,13 @@ import { View, Text, FlatList, TouchableOpacity, ScrollView, StyleSheet, Image, 
 import { getWhatToSeeToday, getPremieres, getPopularMovies, getTopRatedMovies, getTrendingMovies } from '../services/tmdbService';
 import { FilterOptions, MoviesScreenProps } from '../entities/entities';
 import MovieDetailCard from '../components/MovieDetailCard';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function MoviesScreen({ navigation }: MoviesScreenProps) {
     const [movies, setMovies] = useState([]);
     const [filter, setFilter] = useState<FilterOptions>({ id: 'now_playing', text: 'En Cines' });
     const [loading, setLoading] = useState(true);
+    const insets = useSafeAreaInsets();
     const filterOptions: FilterOptions[] = [
         { id: 'now_playing', text: 'En Cines' },
         { id: 'upcoming', text: 'Estrenos' },
@@ -84,7 +86,7 @@ export default function MoviesScreen({ navigation }: MoviesScreenProps) {
                 renderItem={({ item }) => (
                     <MovieDetailCard movie={item} onPress={() => navigation.navigate('Details', { id: item.id, movie: item })} />
                 )}
-                contentContainerStyle={{ paddingBottom: 96 }}
+                contentContainerStyle={{ paddingBottom: 24 + insets.bottom }}
                 showsVerticalScrollIndicator={false}
             />
         </View>

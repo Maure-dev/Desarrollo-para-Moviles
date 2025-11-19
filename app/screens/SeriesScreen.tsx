@@ -3,11 +3,13 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image, ScrollView, 
 import { getPopularSeries, getOnAirSeries, getTopRatedSeries, getUpcomingSeries } from '../services/tmdbService';
 import { FilterOptions, SeriesScreenProps } from '../entities/entities';
 import MovieDetailCard from '../components/MovieDetailCard';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function SeriesScreen({ navigation }: SeriesScreenProps) {
     const [series, setSeries] = useState([]);
     const [filter, setFilter] = useState<FilterOptions>({ id: 'popular', text: 'Populares' });
     const [loading, setLoading] = useState(true);
+    const insets = useSafeAreaInsets();
     const filterOptions: FilterOptions[] = [{ id: 'popular', text: 'Populares' }, { id: 'on_air', text: 'En emisión' }, { id: 'top_rated', text: 'Top Rated' }, { id: 'upcoming', text: 'Estrenos' }];
 
     useEffect(() => {
@@ -71,7 +73,7 @@ export default function SeriesScreen({ navigation }: SeriesScreenProps) {
                 renderItem={({ item }) => (
                     <MovieDetailCard movie={item} onPress={() => navigation.navigate('Details', { id: item.id, movie: item })} />
                 )}
-                contentContainerStyle={{ paddingBottom: 96 }}
+                contentContainerStyle={{ paddingBottom: 24 + insets.bottom }}
                 showsVerticalScrollIndicator={false}
             />
         </View>

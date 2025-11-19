@@ -11,6 +11,7 @@ import DetailsCinemaModal from '../components/DetailsCinemaModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Notifications from 'expo-notifications';
 import { getLatestMovie } from '../services/tmdbService';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function HomeScreen({ navigation }: HomeScreenProps) {
   const [searchText, setSearchText] = useState('');
@@ -20,6 +21,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
   const [nearbyCinemas, setNearbyCinemas] = useState([]);
   const [cinemaDetails, setCinemaDetails] = useState(null);
   const [mapOpacity] = useState(new Animated.Value(0));
+  const insets = useSafeAreaInsets();
 
   const filteredWhatToSeeToday = whatToSeeToday.filter(movie =>
     movie.title.toLowerCase().includes(searchText.toLowerCase())
@@ -158,7 +160,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
     >
       <ScrollView
         style={styles.container}
-        contentContainerStyle={{ paddingTop: 12, paddingBottom: 12 }}
+        contentContainerStyle={{ paddingTop: 12, paddingBottom: 24 + insets.bottom }}
         keyboardShouldPersistTaps="handled"
       >
         {renderListHeader()}
@@ -243,11 +245,7 @@ const styles = StyleSheet.create({
   map: {
     height: 300,
     marginTop: 16,
-    marginBottom: 64,
     borderRadius: 12,
-  },
-  noResults: {
-    marginBottom: 50
   },
   logo: {
     width: 100,
@@ -261,7 +259,6 @@ const styles = StyleSheet.create({
     height: 300,
     marginHorizontal: 16,
     borderRadius: 12,
-    marginBottom: 64,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.4)',

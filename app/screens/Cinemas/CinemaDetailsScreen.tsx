@@ -6,6 +6,7 @@ import { CinemaDetailsScreenProps } from '../../entities/entities';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import Constants from 'expo-constants';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const GOOGLE_CLOUD_MAPS_API_KEY = Constants.expoConfig.extra.ENV_GOOGLE_CLOUD_MAPS_API_KEY;
@@ -14,6 +15,7 @@ export default function CinemaDetailsScreen({ route, navigation }: CinemaDetails
     const { placeId, coords, name, photoUrl, phone, website } = route.params;
     const [loading, setLoading] = useState(true);
     const [details, setDetails] = useState(null);
+    const insets = useSafeAreaInsets();
 
     useEffect(() => {
         (async () => {
@@ -60,7 +62,7 @@ export default function CinemaDetailsScreen({ route, navigation }: CinemaDetails
                 </View>
             </TouchableOpacity>
 
-            <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
+            <ScrollView contentContainerStyle={{ paddingBottom: 24 + insets.bottom }}>
                 <View style={styles.photoCard}>
                     {photoUrl ? (
                         <Image source={{ uri: photoUrl }} style={styles.photo} resizeMode="cover" />
@@ -80,7 +82,6 @@ export default function CinemaDetailsScreen({ route, navigation }: CinemaDetails
                             <Text style={styles.infoText}>{details.formatted_address}</Text>
                         </View>
                     )}
-                    {/* Teléfono */}
                     {(phone || details?.formatted_phone_number) && (
                         <View style={styles.infoRow}>
                             <Ionicons name="call-outline" size={18} color="#9CA3AF" />
@@ -99,7 +100,6 @@ export default function CinemaDetailsScreen({ route, navigation }: CinemaDetails
                             </TouchableOpacity>
                         </View>
                     )}
-                    {/* Sitio web */}
                     {(website || details?.website) && (
                         <View style={styles.infoRow}>
                             <Ionicons name="globe-outline" size={18} color="#9CA3AF" />

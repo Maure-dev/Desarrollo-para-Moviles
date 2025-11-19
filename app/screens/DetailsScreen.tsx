@@ -4,6 +4,7 @@ import { DetailsScreenProps } from '../entities/entities';
 import { Ionicons } from '@expo/vector-icons';
 import { getMovieVideos } from '../services/tmdbService';
 import YoutubePlayer from "react-native-youtube-iframe";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const StarRating = ({ rating }: { rating: number }) => {
   const stars = Array.from({ length: 5 }, (_, i) => i < Math.round(rating / 2));
@@ -23,6 +24,7 @@ export default function DetailsScreen({ route, navigation }: DetailsScreenProps)
   const { id, movie } = route.params;
   const [trailerKey, setTrailerKey] = useState<string | null>(null);
   const [loadingTrailer, setLoadingTrailer] = useState(true);
+  const insets = useSafeAreaInsets();
 
   async function handleLoadVideos() {
     setLoadingTrailer(true);
@@ -68,7 +70,7 @@ export default function DetailsScreen({ route, navigation }: DetailsScreenProps)
           <Text style={styles.trailerText}>Obteniendo tráiler</Text>
         </View>
       ) : trailerKey ? (
-        <View style={{ height: playerHeight, borderRadius: 8, overflow: 'hidden', marginTop: 8, marginBottom: 82 }}>
+        <View style={{ height: playerHeight, borderRadius: 8, overflow: 'hidden', marginTop: 8, marginBottom: 24 + insets.bottom }}>
           <YoutubePlayer
             height={playerHeight}
             play={false}
@@ -93,7 +95,7 @@ export default function DetailsScreen({ route, navigation }: DetailsScreenProps)
       </TouchableOpacity>
       <ScrollView
         style={{ flex: 1, backgroundColor: '#071026' }}
-        contentContainerStyle={{ padding: 16, paddingTop: 160 }}
+        contentContainerStyle={{ padding: 16, paddingTop: 160, paddingBottom: 24 + insets.bottom }}
       >
         <ListHeader />
       </ScrollView>
@@ -145,7 +147,6 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     marginTop: 8,
-    marginBottom: 96,
   },
   trailerText: {
     color: '#9ca3af',

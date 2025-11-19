@@ -6,12 +6,14 @@ import { useNavigation } from '@react-navigation/native';
 import { CinemaDetailsScreenNavigationProp } from '../../entities/entities';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function NearbyListScreen() {
     const navigation = useNavigation<CinemaDetailsScreenNavigationProp>();
     const [loading, setLoading] = useState(false);
     const [cinemas, setCinemas] = useState([]);
     const [location, setLocation] = useState(null);
+    const insets = useSafeAreaInsets();
 
     useEffect(() => {
         (async () => {
@@ -112,8 +114,8 @@ export default function NearbyListScreen() {
                 data={cinemas}
                 keyExtractor={(i) => i.id}
                 renderItem={renderItem}
-                style={styles.flatListCinemas}
                 ListEmptyComponent={<Text style={{ color: '#9CA3AF' }}>No se encontraron cines.</Text>}
+                ListFooterComponent={<View style={{ height: insets.bottom + 24 }} />}
             />
         </View>
     );
@@ -141,9 +143,6 @@ const styles = StyleSheet.create({
     },
     loading: { flex: 1, paddingTop: 120, alignItems: 'center', backgroundColor: '#071026' },
     loadingTitle: { color: '#fff', fontSize: 24, fontWeight: '700', marginTop: 16 },
-    flatListCinemas: {
-        marginBottom: 96
-    },
     cinemaCardGradient: {
         marginHorizontal: 16,
         marginVertical: 8,

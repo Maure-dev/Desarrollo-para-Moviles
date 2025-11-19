@@ -1,12 +1,14 @@
 import React from 'react';
 import { DetailsCinemaProps } from "../entities/entities";
 import { View, Text, TouchableOpacity, StyleSheet, Linking, Alert } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function DetailsCinemaModal(props: DetailsCinemaProps) {
 
     const { cinemaDetails, onSetCinemaDetails } = props;
+    const insets = useSafeAreaInsets();
 
-    const handleOpenLink = async (url: string) => {
+    async function handleOpenLink(url: string) {
         try {
             const supported = await Linking.canOpenURL(url);
             if (supported) {
@@ -20,7 +22,7 @@ export default function DetailsCinemaModal(props: DetailsCinemaProps) {
     };
 
     return (
-        <View style={styles.cinemaDetailsContainer}>
+        <View style={[styles.cinemaDetailsContainer, { bottom: 24 + insets.bottom }]}>
             <Text style={styles.cinemaDetailsTitle}>
                 {cinemaDetails.name}
             </Text>
@@ -86,7 +88,6 @@ export default function DetailsCinemaModal(props: DetailsCinemaProps) {
 const styles = StyleSheet.create({
     cinemaDetailsContainer: {
         position: 'absolute',
-        bottom: 64,
         left: 0,
         right: 0,
         backgroundColor: '#1F2937',
