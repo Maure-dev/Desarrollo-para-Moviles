@@ -62,7 +62,7 @@ export default function CinemaDetailsScreen({ route, navigation }: CinemaDetails
                 </View>
             </TouchableOpacity>
 
-            <ScrollView contentContainerStyle={{ paddingBottom: 24 + insets.bottom }}>
+            <ScrollView contentContainerStyle={{ paddingBottom: 112 + insets.bottom }}>
                 <View style={styles.photoCard}>
                     {photoUrl ? (
                         <Image source={{ uri: photoUrl }} style={styles.photo} resizeMode="cover" />

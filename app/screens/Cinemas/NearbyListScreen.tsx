@@ -115,7 +115,7 @@ export default function NearbyListScreen() {
                 keyExtractor={(i) => i.id}
                 renderItem={renderItem}
                 ListEmptyComponent={<Text style={{ color: '#9CA3AF' }}>No se encontraron cines.</Text>}
-                ListFooterComponent={<View style={{ height: insets.bottom + 24 }} />}
+                ListFooterComponent={<View style={{ height: insets.bottom + 112 }} />}
             />
         </View>
     );

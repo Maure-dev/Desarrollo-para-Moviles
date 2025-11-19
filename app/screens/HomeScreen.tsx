@@ -160,7 +160,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
     >
       <ScrollView
         style={styles.container}
-        contentContainerStyle={{ paddingTop: 12, paddingBottom: 24 + insets.bottom }}
+        contentContainerStyle={{ paddingTop: 12, paddingBottom: 112 + insets.bottom }}
         keyboardShouldPersistTaps="handled"
       >
         {renderListHeader()}

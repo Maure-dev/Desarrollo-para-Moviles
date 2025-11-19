@@ -70,7 +70,7 @@ export default function DetailsScreen({ route, navigation }: DetailsScreenProps)
           <Text style={styles.trailerText}>Obteniendo tráiler</Text>
         </View>
       ) : trailerKey ? (
-        <View style={{ height: playerHeight, borderRadius: 8, overflow: 'hidden', marginTop: 8, marginBottom: 24 + insets.bottom }}>
+        <View style={{ height: playerHeight, borderRadius: 8, overflow: 'hidden', marginTop: 8 }}>
           <YoutubePlayer
             height={playerHeight}
             play={false}
@@ -95,7 +95,7 @@ export default function DetailsScreen({ route, navigation }: DetailsScreenProps)
       </TouchableOpacity>
       <ScrollView
         style={{ flex: 1, backgroundColor: '#071026' }}
-        contentContainerStyle={{ padding: 16, paddingTop: 160, paddingBottom: 24 + insets.bottom }}
+        contentContainerStyle={{ padding: 16, paddingTop: 160, paddingBottom: 112 + insets.bottom }}
       >
         <ListHeader />
       </ScrollView>

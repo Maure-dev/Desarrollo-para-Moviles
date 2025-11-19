@@ -86,7 +86,7 @@ export default function MoviesScreen({ navigation }: MoviesScreenProps) {
                 renderItem={({ item }) => (
                     <MovieDetailCard movie={item} onPress={() => navigation.navigate('Details', { id: item.id, movie: item })} />
                 )}
-                contentContainerStyle={{ paddingBottom: 24 + insets.bottom }}
+                contentContainerStyle={{ paddingBottom: 112 + insets.bottom }}
                 showsVerticalScrollIndicator={false}
             />
         </View>

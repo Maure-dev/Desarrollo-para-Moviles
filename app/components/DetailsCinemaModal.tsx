@@ -22,7 +22,7 @@ export default function DetailsCinemaModal(props: DetailsCinemaProps) {
     };
 
     return (
-        <View style={[styles.cinemaDetailsContainer, { bottom: 24 + insets.bottom }]}>
+        <View style={[styles.cinemaDetailsContainer, { bottom: 112 + insets.bottom }]}>
             <Text style={styles.cinemaDetailsTitle}>
                 {cinemaDetails.name}
             </Text>
