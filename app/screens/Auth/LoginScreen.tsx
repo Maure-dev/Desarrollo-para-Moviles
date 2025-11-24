@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert, Animated, Easing } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert, Animated, Easing, KeyboardAvoidingView, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -45,6 +45,10 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
   return (
     <View style={styles.container}>
       <Image source={require("../../assets/logo.png")} style={styles.logo} />
+      <KeyboardAvoidingView 
+      style={{ flex: 0 }} 
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}    
+      keyboardVerticalOffset={100}>
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={LoginSchema}
@@ -60,6 +64,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         }}
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+          
           <View style={styles.form}>
             <TextInput
               placeholder="Email"
@@ -80,7 +85,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                 onChangeText={handleChange('password')}
                 onBlur={handleBlur('password')}
                 value={values.password}
-              />
+                />
               <TouchableOpacity style={styles.iconButton} onPress={() => setShowPassword(!showPassword)}>
                 <Ionicons name={showPassword ? "eye-off" : "eye"} size={20} color="#fff" />
               </TouchableOpacity>
@@ -102,6 +107,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           </View>
         )}
       </Formik>
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -125,8 +131,10 @@ const styles = StyleSheet.create({
   error: { color: '#FFB4B4', fontSize: 12, marginBottom: 6 },
   placeholder: { color: '#9CA3AF', },
   logo: {
-    width: 200,
-    height: 200,
+    flexShrink: 1,
+resizeMode: 'contain',
+    maxWidth: 200,
+    maxHeight: 200,
     alignSelf: "center",
     marginBottom: 100
   },
